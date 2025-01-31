@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Navigator from "@/components/Navigator/Navigator";
 // Page Components
 import MapPage from "@/pages/MapPage";
-import SettingsPage from "@/pages/SettingsPage";
+import SettingsPage from "@/pages/SettingsPage/SettingsPage";
 import LoginPage from "@/pages/LoginPage";
 import LogoutPage from "@/pages/LogoutPage";
 import ForgotPasswordPage from "@/pages/ForgotPasswordPage";

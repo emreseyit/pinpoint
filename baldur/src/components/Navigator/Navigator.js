@@ -99,11 +99,11 @@ function Navigator() {
             <ul>
               {isAuthenticated ? (
                 <>
-                  <li onClick={closeMenu}>
+                  {/* <li onClick={closeMenu}>
                     <a href="settings">
                       <i className="mdi mdi-cog"></i> Ayarlar
                     </a>
-                  </li>
+                  </li> */}
                   <li onClick={handleLogout}>
                     <a href="#">
                       <i className="mdi mdi-logout"></i> Oturumu Kapat
