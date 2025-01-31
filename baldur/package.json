@@ -4,11 +4,13 @@
   "private": true,
   "dependencies": {
     "@craco/craco": "^7.1.0",
+    "@mdi/font": "^7.4.47",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
     "axios": "^1.7.9",
     "craco": "^0.0.3",
+    "js-cookie": "^3.0.5",
     "leaflet": "^1.9.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

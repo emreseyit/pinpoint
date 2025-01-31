@@ -1,27 +1,39 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 import './LoginPage.css'; // Import CSS for styling
 import { API_HOST } from "@/config/app";
+import { useUser } from "@/context/UserContext"; // Ensure correct import path
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { setCurrentUser } = useUser(); // Ensure useUser is correctly used
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post(
-        `${API_HOST}/api/login/`,
-        { username, password },
-        {
+      const response = await axios.post(`${API_HOST}/api/auth/`, {
+        username,
+        password
+      },{
           headers: {
             "Content-Type": "application/json",
           },
         }
       );
+      const { token, user } = response.data;
+      console.log(token, user);
+      // Store token in cookies
+      Cookies.set('token', token);
+      // Store user credentials in current user store
+      setCurrentUser(user);
       // Handle successful login
+      navigate("/"); // Route to home page after successful login
     } catch (error) {
-      console.error("There was an error logging in!", error);
+      console.error("Login error", error);
       // Handle login error
     }
   };
@@ -62,6 +74,10 @@ function LoginPage() {
         >
           Giriş Yap
         </button>
+        <div className="register-link">
+          <span>Hesabınız yok mu?</span>
+          <a href="/register">Kayıt Ol</a>
+        </div>
       </form>
     </div>
   );
