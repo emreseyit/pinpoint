@@ -63,25 +63,50 @@ body.dark-theme .navigator-menu {
   background: transparent;
   border: none;
   color: #999;
-  font-size: 24px;
+  font-size: 28px;
+  width: 40px;
+  height: 40px;
   cursor: pointer;
   position: absolute;
-  top: 12px;
+  top: 20px;
   right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s, background-color 0.3s;
+  border-radius: 50%; /* Make button circular */
+}
+
+/* Hover effect for close button */
+.close-btn:hover {
+  color: #007bff;
+  background-color: rgba(0, 0, 0, 0.1); /* Add circular background */
+  opacity: 0.8; /* Change opacity */
+}
+
+.close-btn i {
+  font-size: 32px;
+}
+
+/* Hover effect for close button in dark mode */
+body.dark-theme .close-btn:hover {
+  color: #1e90ff;
+  background-color: rgba(255, 255, 255, 0.1); /* Add circular background */
+  opacity: 0.8; /* Change opacity */
 }
 
 /* Menü içeriği */
 .menu-content {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: calc(100% - 60px); /* Adjust height to prevent overflow */
   justify-content: space-between; /* Üst ve alt segment ayrımı */
   padding-top: 60px; /* Kapatma tuşu için boşluk */
 }
 
 /* Segmentler */
 .navigator-segment {
-  padding: 16px;
+  padding: 16px 0;
 }
 
 .navigator-segment ul {
@@ -90,22 +115,52 @@ body.dark-theme .navigator-menu {
   margin: 0;
 }
 
-.navigator-segment li {
-  margin-bottom: 12px;
-}
-
 .navigator-segment li a {
   text-decoration: none;
   font-weight: 500;
-  display: inline-block;
+  display: flex; /* Change display to flex */
+  align-items: center; /* Center align items vertically */
+  color: inherit;
+  transition: color 0.3s, background-color 0.3s;
+  padding: 8px 12px;
+  width: 200px; /* Adjust width to account for margin */
+  margin: 0 8px;
+  border-radius: 4px;
+}
+
+/* Hover effect for links */
+.navigator-segment li a:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #007bff;
+}
+
+/* Hover effect for links in dark mode */
+body.dark-theme .navigator-segment li a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #1e90ff;
+}
+
+/* Active link styles */
+.navigator-segment li a.active {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #0056b3;
+}
+
+/* Ensure bottom section does not overflow */
+.navigator-segment.bottom-section {
+  border-top: 1px solid #ccc;
+  padding-top: 16px;
+  margin-bottom: 60px; /* Add margin to prevent overflow */
 }
 
 /*********** THEME SWITCH ***********/
-/* Switch'in en alt sağda konumlandırılması */
+/* Switch'in en üst solda konumlandırılması */
 .theme-switch-container {
+  display: flex;
+  align-items: center;
   position: absolute;
-  bottom: 20px;
-  right: 20px;
+  top: 20px;
+  left: 20px;
 }
 
 /* Basit bir toggle switch stili */
@@ -150,6 +205,26 @@ input:checked + .slider {
 
 input:checked + .slider:before {
   transform: translateX(24px);
+}
+
+/* Theme icons */
+.theme-icon {
+  margin-left: 10px;
+  font-size: 28px; /* Increase icon size */
+}
+
+body.dark-theme .theme-icon {
+  color: white;
+}
+
+body:not(.dark-theme) .theme-icon {
+  color: #FFD700; /* Change sun icon color to gold */
+}
+
+/* General icon styles */
+.navigator-segment li i {
+  font-size: 28px; /* Increase icon size */
+  margin-right: 8px;
 }
 
 /*********** BACKDROP (Menü açılınca arka planı karartmak) ***********/
