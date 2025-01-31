@@ -5,9 +5,6 @@ function LogoutPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Oturumu kapatma işlemleri (token temizleme vs.)
-    console.log("Oturum kapatılıyor...");
-    // İşlem bittikten sonra login'e veya anasayfaya yönlendirme:
     navigate("/login");
   }, [navigate]);
 

@@ -12,9 +12,7 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     const token = Cookies.get('token');
     if (token) {
-      console.log('Token found:', token);
       const url = `${API_HOST}/api/auth/`;
-      console.log('Requesting user info from:', url);
 
       // Fetch user info if token exists
       axios.get(url, {
@@ -23,7 +21,6 @@ export const UserProvider = ({ children }) => {
         }
       })
       .then(response => {
-        console.log('User info retrieved:', response.data);
         setCurrentUser(response.data);
         setIsAuthenticated(true);
       })

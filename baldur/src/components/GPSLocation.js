@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { MapContainer, TileLayer, Polyline } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import { API_HOST } from '@/config/app';
 
 function GPSLocation() {
   const [location, setLocation] = useState({ lat: null, lng: null });
   const [error, setError] = useState(null);
+  const polylineGPSData = useRef([]);
 
   useEffect(() => {
-    if (!("geolocation" in navigator)) {
+    if (!navigator.geolocation || typeof navigator.geolocation.getCurrentPosition !== 'function') {
       setError("Tarayıcınız geolocation özelliğini desteklemiyor.");
       return;
     }
@@ -20,23 +24,41 @@ function GPSLocation() {
       setError(err.message);
     };
 
-    // Tek seferlik konum alma
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
+  }, []);
 
-    // Sürekli takip etmek isterseniz, getCurrentPosition yerine watchPosition kullanabilirsiniz:
-    // const watchId = navigator.geolocation.watchPosition(onSuccess, onError);
-    // return () => navigator.geolocation.clearWatch(watchId);
-
+  useEffect(() => {
+    fetch(`${API_HOST}/api/gps-data`)
+      .then(response => response.json())
+      .then(data => {
+        polylineGPSData.current = data.map(point => [point.lat, point.lng]);
+        console.log('GPS data:', polylineGPSData.current);
+      })
+      .catch(error => console.error('Error fetching GPS data:', error));
   }, []);
 
   return (
     <div>
       <h2>Kullanıcı Konumu</h2>
       {error && <p style={{ color: "red" }}>Hata: {error}</p>}
-      {!error && location.lat && location.lng ? (
-        <p>
-          Enlem: {location.lat}, Boylam: {location.lng}
-        </p>
+      {!error && location && location.lat && location.lng ? (
+        <>
+          <p>
+            Enlem: {location.lat}, Boylam: {location.lng}
+          </p>
+          <MapContainer center={[location.lat, location.lng]} zoom={13} style={{ height: "400px", width: "100%" }}>
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            />
+            {polylineGPSData.current.length > 0 && (
+              <Polyline
+                positions={polylineGPSData}
+                pathOptions={{ color: 'blue', dashArray: '5, 10' }}
+              />
+            )}
+          </MapContainer>
+        </>
       ) : (
         <p>Konum bilgisi alınıyor...</p>
       )}

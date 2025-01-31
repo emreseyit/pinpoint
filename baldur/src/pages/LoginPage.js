@@ -25,7 +25,6 @@ function LoginPage() {
         }
       );
       const { token, user } = response.data;
-      console.log(token, user);
       // Store token in cookies
       Cookies.set('token', token);
       // Store user credentials in current user store
