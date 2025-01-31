@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
-    'rest_framework_simplejwt.token_blacklist'
+    'rest_framework_simplejwt.token_blacklist',
+    'gps'
 ]
 
 REST_FRAMEWORK = {
@@ -93,8 +94,6 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "apppinpoint4@gmail.com"  # Replace with your Gmail address.
-EMAIL_HOST_PASSWORD = "exfh tlfx sapr gjcz"  # Replace with your Gmail password or App-Specific password.
 
 ROOT_URLCONF = 'api.urls'
 
